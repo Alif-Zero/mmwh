@@ -127,20 +127,22 @@ class AccountMove(models.Model):
         lines_vals_list = []
         self.invoice_line_ids = False
         for line in invoice_line_ids:
+            copied_vals = line.copy_data()[0]
+            product_id = line.product_id
+            invoice_id = self.invoice_id.name
+            lot_id = self.env['stock.lot'].search([
+                ('name','=', invoice_id),
+                ('product_id','=', product_id.id),
+                ])
+            # stock_quant = self.env['stock.quant'].search([
+            #     ('product_id','=', product_id.id),
+            #     ('lot_id','=', lot_id.id),
+            #     ])
+
+            copied_vals['quantity'] = lot_id.product_qty
+            self.invoice_line_ids += self.env['account.move.line'].new(copied_vals)
              # Add interim account line.
-            lines_vals_list = {
-                'name': line.name[:64],
-                # 'move_id': self.id,
-                'partner_id': self.commercial_partner_id.id,
-                'product_id': line.product_id.id,
-                'product_uom_id': line.product_uom_id.id,
-                'quantity': line.quantity,
-                'price_unit': line.price_unit,
-                'amount_currency': -line.amount_currency,
-                'account_id': line.product_id.property_account_expense_id.id or line.product_id.categ_id.property_account_expense_categ_id.id,
-                'tax_ids': [],
-            }
-            self.invoice_line_ids = [(0,0,lines_vals_list)]
+            
 
 
 class AccountMoveLine(models.Model):
