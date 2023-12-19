@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="az_mill_tree">
+            <field name="name">az.mill.tree.view.form</field>
+            <field name="model">az.mill</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="az_mill_form">
+            <field name="name">az.mill.form</field>
+            <field name="model">az.mill</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" />
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="az_mill_action">
+            <field name="name">Mill</field>
+            <field name="res_model">az.mill</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="az_wms.az_mill_search" model="ir.ui.view">
+            <field name="name">az.mill.search</field>
+            <field name="model">az.mill</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+
+                    <filter string="Code" name="code"/>
+                    <group string="Group By">
+                        <filter string="Name" name="name" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+       
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+       <record id="view_move_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+               
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_credit" />
+                    <field name="partner_debit" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="az_view_sale_return_action">
+            <field name="name">Sale Return</field>
+            <field name="res_model">account.move</field>
+            <field name="domain">[('move_type', '=', 'in_invoice')]</field>
+            <field name="context">{'default_move_type': 'in_invoice'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('account.view_invoice_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('az_wms.az_view_move_form')})
+            ]"/>
+        </record>
+
+
+
+    </data>
+</odoo>

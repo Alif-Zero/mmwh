@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_az_mill,az.mill,model_az_mill,base.group_user,1,1,1,1
+access_partner_cell,partner.cell,model_partner_cell,base.group_user,1,1,1,1

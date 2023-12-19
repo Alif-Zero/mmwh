@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="az_product_template_tree">
+            <field name="name">product.template.tree.az</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="default_code" string='Code'/>
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="uom_id"  string="Packaging Unit"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="az_product_template_form">
+            <field name="name">product.template.form.az</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="default_code" string='Code' readonly="1"/>
+                            <field name="name" string="Item Name"/>
+                            <field name="categ_id" string="Category"/>
+                            <field name="uom_id" string="Packaging Unit"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="az_product_template_view">
+            <field name="name">Item</field>
+            <field name="res_model">product.template</field>
+            <field name="context">
+                {'default_detailed_type': 'product','default_tracking': 'lot'}
+            </field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('az_wms.az_product_template_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('az_wms.az_product_template_form')})]"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

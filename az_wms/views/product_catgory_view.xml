@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_product_category_tree">
+            <field name="name">product.category.tree.az</field>
+            <field name="model">product.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code" />
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_category_form">
+            <field name="name">product.category.form.az</field>
+            <field name="model">product.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" />
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record model="ir.actions.act_window" id="az_product_category_action">
+            <field name="name">Category</field>
+            <field name="res_model">product.category</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('az_wms.view_product_category_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('az_wms.view_product_category_form')})]"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+      
+    </data>
+</odoo>

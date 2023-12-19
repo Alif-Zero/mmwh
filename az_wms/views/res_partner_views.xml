@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="az_res_partner_tree">
+            <field name="name">az.res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="contact_person"/>
+                    <field name="phone" widget="phone"/>
+                    <field name="cell_no" widget="many2many_tags"/>
+                    <field name="email" widget="email" context="{'gravatar_image': True}"/>
+                    <field name="website" string="Website" widget="url"
+                           placeholder="e.g. https://www.alifzero.com"/>
+                    <field name="ntn"/>
+                    <field name="gst"/>
+                    <field name="strn"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="az_res_partner_form">
+            <field name="name">az.res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" readonly="1"/>
+                                <field name="name"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="cell_no" widget="many2many_tags"/>
+                                <field name="email" widget="email" context="{'gravatar_image': True}"/>
+                                <field name="full_address" string="Address"/>
+                            </group>
+                            <group>
+                                <field name="ntn"/>
+                                <field name="gst"/>
+                                <field name="strn"/>
+                                <field name="contact_person"/>
+                                <field name="website" string="Website" widget="url"
+                                placeholder="e.g. https://www.alifzero.com"/>
+
+                                <field name="comment" string="Comments"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="az_res_partner_search" model="ir.ui.view">
+            <field name="name">az.res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="contact_person"/>
+                    <field name="phone"/>
+                    <field name="cell_no"/>
+                    <field name="email"/>
+                    <field name="website"/>
+                    <field name="ntn"/>
+                    <field name="gst"/>
+                    <field name="strn"/>
+                    <filter string="Code" name="code"/>
+                    <group string="Group By">
+                        <filter string="Contact Person" name="contact_person" context="{'group_by': 'contact_person'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="az_res_partner_action">
+            <field name="name">Customer</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('az_wms.az_res_partner_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('az_wms.az_res_partner_form')})]"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>
